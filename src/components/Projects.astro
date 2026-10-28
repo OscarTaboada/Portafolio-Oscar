@@ -1,0 +1,376 @@
+---
+import { projects } from '../data/portfolio';
+---
+
+<section id="proyectos" class="py-20 bg-slate-50/50 dark:bg-slate-900/30 border-y border-slate-200/40 dark:border-slate-800/60 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    
+    <!-- Section Header -->
+    <div class="max-w-2xl mx-auto text-center mb-12 reveal-on-scroll">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-semibold mb-3">
+        <span>Portafolio Seleccionado</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        Proyectos Destacados
+      </h2>
+      <p class="mt-3 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+        Explora una selección de mis trabajos en desarrollo de videojuegos con Unity, producción audiovisual para eventos tecnológicos y diseño gráfico.
+      </p>
+      <div class="w-12 h-1 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mb-12 reveal-on-scroll">
+      <button
+        type="button"
+        class="filter-btn active px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer bg-sky-500 text-white shadow-md shadow-sky-500/20"
+        data-filter="all"
+      >
+        Todos ({projects.length})
+      </button>
+      <button
+        type="button"
+        class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-sky-500 border border-slate-200/80 dark:border-slate-700/80"
+        data-filter="videojuegos"
+      >
+        Videojuegos (Unity)
+      </button>
+      <button
+        type="button"
+        class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-sky-500 border border-slate-200/80 dark:border-slate-700/80"
+        data-filter="audiovisual"
+      >
+        Audiovisual & Motion
+      </button>
+      <button
+        type="button"
+        class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-sky-500 border border-slate-200/80 dark:border-slate-700/80"
+        data-filter="diseno"
+      >
+        Diseño Gráfico
+      </button>
+    </div>
+
+    <!-- Projects Grid -->
+    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+      {projects.map((proj) => (
+        <div
+          class="project-card flex flex-col rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/70 overflow-hidden shadow-md hover:shadow-xl hover:border-sky-500/40 dark:hover:border-sky-400/40 transition-all duration-300 group reveal-on-scroll"
+          data-categories={proj.categories.join(' ')}
+          data-project={JSON.stringify(proj)}
+        >
+          <!-- Image Cover Preview -->
+          <div class="relative aspect-video w-full overflow-hidden bg-slate-900 cursor-pointer open-modal-btn">
+            <img
+              src={proj.image}
+              alt={proj.title}
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            
+            <!-- Category / Status Badges on image -->
+            <div class="absolute top-3 left-3 flex flex-wrap gap-1.5">
+              <span class="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-wide bg-slate-950/80 backdrop-blur-md text-sky-300 border border-sky-400/30">
+                {proj.categoryLabels[0]}
+              </span>
+            </div>
+
+            <div class="absolute top-3 right-3">
+              <span class={`px-2.5 py-0.5 rounded-full text-[10px] font-semibold backdrop-blur-md ${
+                proj.status === 'Finalizado'
+                  ? 'bg-emerald-500/80 text-white'
+                  : 'bg-amber-500/80 text-white'
+              }`}>
+                {proj.status}
+              </span>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <!-- Client & Date -->
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+                <span class="font-medium text-sky-600 dark:text-sky-400">{proj.client}</span>
+                <span>{proj.date}</span>
+              </div>
+
+              <!-- Title -->
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors duration-200 cursor-pointer open-modal-btn">
+                {proj.title}
+              </h3>
+
+              <!-- Short Description -->
+              <p class="mt-2.5 text-xs text-slate-600 dark:text-slate-300 line-clamp-3 leading-relaxed">
+                {proj.shortDesc}
+              </p>
+
+              <!-- Tools Tags -->
+              <div class="mt-4 flex flex-wrap gap-1">
+                {proj.tools.slice(0, 4).map((tool) => (
+                  <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700/60 text-[10px] font-medium text-slate-600 dark:text-slate-300">
+                    {tool}
+                  </span>
+                ))}
+                {proj.tools.length > 4 && (
+                  <span class="px-1.5 py-0.5 text-[10px] text-slate-400 font-medium">
+                    +{proj.tools.length - 4}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <!-- Card Bottom Actions -->
+            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between gap-2">
+              <button
+                type="button"
+                class="open-modal-btn inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 dark:text-sky-400 hover:text-sky-700 dark:hover:text-sky-300 transition-colors cursor-pointer"
+              >
+                <span>Ver detalles</span>
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {proj.liveUrl && (
+                <a
+                  href={proj.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-300 text-xs font-semibold border border-sky-300/40 dark:border-sky-500/30 transition-colors"
+                  title="Abrir enlace externo"
+                >
+                  <span>{proj.liveLabel ? proj.liveLabel.split(' ')[0] : 'Enlace'}</span>
+                  <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              )}
+            </div>
+
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- Modern Web Guidance Compliant Dialog for Project Details -->
+<dialog id="project-modal" closedby="any" aria-labelledby="modal-project-title" class="rounded-2xl overflow-hidden shadow-2xl p-0">
+  <div class="relative bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700/80 rounded-2xl max-h-[88vh] flex flex-col">
+    
+    <!-- Modal Close Button -->
+    <button
+      id="modal-close-btn"
+      type="button"
+      aria-label="Cerrar ventana"
+      class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-slate-950/70 hover:bg-slate-950 text-white flex items-center justify-center backdrop-blur-md transition-colors cursor-pointer"
+    >
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- Modal Header Image -->
+    <div class="relative w-full aspect-video sm:h-64 sm:aspect-auto overflow-hidden bg-slate-950 shrink-0">
+      <img id="modal-image" src="" alt="" class="w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-slate-900 via-transparent to-transparent"></div>
+      
+      <!-- Status pill inside modal -->
+      <div class="absolute bottom-4 left-6 flex items-center gap-2">
+        <span id="modal-status" class="px-3 py-1 rounded-full text-xs font-bold text-white bg-emerald-600 shadow-md"></span>
+        <span id="modal-client" class="px-3 py-1 rounded-full text-xs font-medium text-slate-900 dark:text-white bg-white/80 dark:bg-slate-800/80 backdrop-blur-md"></span>
+      </div>
+    </div>
+
+    <!-- Modal Body Content -->
+    <div class="p-6 sm:p-8 overflow-y-auto space-y-6">
+      <div>
+        <div id="modal-categories" class="flex flex-wrap gap-1.5 mb-2"></div>
+        <h3 id="modal-project-title" class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight"></h3>
+        <p id="modal-date" class="text-xs text-slate-400 mt-1"></p>
+      </div>
+
+      <!-- Full Narrative -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-2">Descripción del Proyecto</h4>
+        <p id="modal-full-desc" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></p>
+      </div>
+
+      <!-- Highlights -->
+      <div id="modal-highlights-container" class="space-y-2">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">Aspectos Clave</h4>
+        <ul id="modal-highlights" class="space-y-1.5"></ul>
+      </div>
+
+      <!-- Roles & Tools Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Roles Desempeñados</h4>
+          <div id="modal-roles" class="flex flex-wrap gap-1.5"></div>
+        </div>
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Herramientas & Tecnologías</h4>
+          <div id="modal-tools" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+
+      <!-- Modal Footer CTA -->
+      <div class="pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+        <a
+          id="modal-live-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-xs shadow-md shadow-sky-500/20 transition-all items-center gap-2"
+        >
+          <span id="modal-live-label">Ver en Vivo</span>
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+
+        <button
+          id="modal-close-bottom"
+          type="button"
+          class="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-colors cursor-pointer ml-auto"
+        >
+          Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // Filter logic
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-sky-500', 'text-white', 'shadow-md', 'shadow-sky-500/20');
+        b.classList.add('bg-white', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      });
+
+      btn.classList.add('active', 'bg-sky-500', 'text-white', 'shadow-md', 'shadow-sky-500/20');
+      btn.classList.remove('bg-white', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+
+      const filter = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        const categories = card.getAttribute('data-categories') || '';
+        if (filter === 'all' || categories.includes(filter || '')) {
+          (card as HTMLElement).style.display = 'flex';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Modal logic
+  const modal = document.getElementById('project-modal') as HTMLDialogElement | null;
+  const closeBtn = document.getElementById('modal-close-btn');
+  const closeBottomBtn = document.getElementById('modal-close-bottom');
+
+  closeBtn?.addEventListener('click', () => modal?.close());
+  closeBottomBtn?.addEventListener('click', () => modal?.close());
+
+  document.querySelectorAll('.open-modal-btn').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      const card = (e.currentTarget as HTMLElement).closest('.project-card');
+      if (!card || !modal) return;
+      const dataStr = card.getAttribute('data-project');
+      if (!dataStr) return;
+      const p = JSON.parse(dataStr);
+
+      const img = document.getElementById('modal-image') as HTMLImageElement;
+      if (img) {
+        img.src = p.image;
+        img.alt = p.title;
+      }
+
+      const title = document.getElementById('modal-project-title');
+      if (title) title.textContent = p.title;
+
+      const date = document.getElementById('modal-date');
+      if (date) date.textContent = `${p.date} • ${p.client}`;
+
+      const status = document.getElementById('modal-status');
+      if (status) {
+        status.textContent = p.status;
+        status.className = p.status === 'Finalizado'
+          ? 'px-3 py-1 rounded-full text-xs font-bold text-white bg-emerald-600 shadow-md'
+          : 'px-3 py-1 rounded-full text-xs font-bold text-white bg-amber-600 shadow-md';
+      }
+
+      const client = document.getElementById('modal-client');
+      if (client) client.textContent = p.client;
+
+      const fullDesc = document.getElementById('modal-full-desc');
+      if (fullDesc) fullDesc.textContent = p.fullDesc;
+
+      // Categories
+      const catContainer = document.getElementById('modal-categories');
+      if (catContainer) {
+        catContainer.innerHTML = p.categoryLabels.map((c: string) => 
+          `<span class="px-2.5 py-0.5 rounded text-[11px] font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">${c}</span>`
+        ).join('');
+      }
+
+      // Highlights
+      const hlContainer = document.getElementById('modal-highlights-container');
+      const hlList = document.getElementById('modal-highlights');
+      if (hlContainer && hlList) {
+        if (p.highlights && p.highlights.length > 0) {
+          hlContainer.style.display = 'block';
+          hlList.innerHTML = p.highlights.map((h: string) => 
+            `<li class="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300">
+              <svg class="w-3.5 h-3.5 text-sky-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>${h}</span>
+            </li>`
+          ).join('');
+        } else {
+          hlContainer.style.display = 'none';
+        }
+      }
+
+      // Roles
+      const rolesContainer = document.getElementById('modal-roles');
+      if (rolesContainer) {
+        rolesContainer.innerHTML = p.role.map((r: string) => 
+          `<span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[11px] font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">${r}</span>`
+        ).join('');
+      }
+
+      // Tools
+      const toolsContainer = document.getElementById('modal-tools');
+      if (toolsContainer) {
+        toolsContainer.innerHTML = p.tools.map((t: string) => 
+          `<span class="px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/40 text-[11px] font-semibold text-sky-700 dark:text-sky-300 border border-sky-300/40 dark:border-sky-500/30">${t}</span>`
+        ).join('');
+      }
+
+      // Live CTA
+      const liveBtn = document.getElementById('modal-live-btn') as HTMLAnchorElement;
+      const liveLabel = document.getElementById('modal-live-label');
+      if (liveBtn && liveLabel) {
+        if (p.liveUrl) {
+          liveBtn.href = p.liveUrl;
+          liveLabel.textContent = p.liveLabel || 'Ver en Vivo';
+          liveBtn.style.display = 'inline-flex';
+        } else {
+          liveBtn.style.display = 'none';
+        }
+      }
+
+      modal.showModal();
+    });
+  });
+</script>

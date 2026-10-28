@@ -1,0 +1,52 @@
+---
+import { personalData } from '../data/portfolio';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="py-12 bg-white dark:bg-[#080c14] border-t border-slate-200/40 dark:border-slate-800/80 transition-colors">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+      
+      <!-- Logo & Copyright -->
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-slate-950 font-black text-xs">
+          OT
+        </div>
+        <div>
+          <span class="block text-sm font-bold text-slate-900 dark:text-white">{personalData.name}</span>
+          <span class="block text-xs text-slate-500 dark:text-slate-400">© {currentYear} • {personalData.shortTitle}</span>
+        </div>
+      </div>
+
+      <!-- Quick Nav Links -->
+      <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-400">
+        <a href="#inicio" class="hover:text-sky-500 transition-colors">Inicio</a>
+        <a href="#sobre-mi" class="hover:text-sky-500 transition-colors">Sobre mí</a>
+        <a href="#habilidades" class="hover:text-sky-500 transition-colors">Habilidades</a>
+        <a href="#proyectos" class="hover:text-sky-500 transition-colors">Proyectos</a>
+        <a href="#faq" class="hover:text-sky-500 transition-colors">FAQ</a>
+        <a href="#contacto" class="hover:text-sky-500 transition-colors">Contacto</a>
+      </div>
+
+      <!-- Back to top button -->
+      <div>
+        <a
+          href="#inicio"
+          aria-label="Volver arriba"
+          class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-sky-500 dark:hover:text-sky-400 border border-slate-200 dark:border-slate-700/60 flex items-center justify-center transition-colors shadow-xs"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Sub note -->
+    <div class="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/60 text-center text-xs text-slate-400 dark:text-slate-500">
+      Diseñado y desarrollado con Astro en Sucre, Bolivia.
+    </div>
+  </div>
+</footer>

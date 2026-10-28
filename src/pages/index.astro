@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Skills from '../components/Skills.astro';
+import Projects from '../components/Projects.astro';
+import FAQ from '../components/FAQ.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Oscar Taboada | Ingeniero en Diseño y Animación Digital"
+  description="Portafolio profesional de Oscar Taboada. Videojuegos educativos en Unity C#, producción audiovisual, motion graphics y diseño gráfico en Sucre, Bolivia."
+>
+  <Navbar />
+  <main>
+    <Hero />
+    <About />
+    <Skills />
+    <Projects />
+    <FAQ />
+    <Contact />
+  </main>
+  <Footer />
+</Layout>

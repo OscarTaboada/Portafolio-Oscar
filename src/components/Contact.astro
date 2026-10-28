@@ -1,0 +1,222 @@
+---
+import { personalData } from '../data/portfolio';
+---
+
+<section id="contacto" class="py-20 bg-slate-50/50 dark:bg-slate-900/30 border-t border-slate-200/40 dark:border-slate-800/60 relative">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    
+    <!-- Section Header -->
+    <div class="max-w-2xl mx-auto text-center mb-16 reveal-on-scroll">
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-semibold mb-3">
+        <span>Canales Directos</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        Conectemos
+      </h2>
+      <p class="mt-3 text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+        ¿Tienes una propuesta de videojuego, necesitas producción audiovisual para tu evento o buscas diseño gráfico de impacto? Hablemos.
+      </p>
+      <div class="w-12 h-1 bg-gradient-to-r from-sky-400 to-blue-600 mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <!-- Contact Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      
+      <!-- Left Column: Direct channels & Cards -->
+      <div class="lg:col-span-5 space-y-5 reveal-on-scroll">
+        
+        <!-- WhatsApp Quick Card -->
+        <a
+          href={personalData.whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-6 rounded-2xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 hover:border-emerald-500/50 dark:hover:border-emerald-400/50 shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-between group"
+        >
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.54 1.772.84 2.796.84 3.183 0 5.768-2.587 5.768-5.766.001-3.187-2.575-5.77-5.768-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.073-2.18-.544-1.899-.787-3.119-2.73-3.214-2.857-.095-.128-.767-1.021-.767-1.947 0-.926.485-1.381.658-1.57.172-.189.376-.236.502-.236.126 0 .252.001.363.007.118.006.275-.045.431.33.161.387.551 1.343.6 1.442.049.099.082.215.016.345-.066.13-.1.21-.198.324-.098.114-.207.255-.296.342-.099.097-.202.203-.087.401.115.197.512.845 1.1 1.368.756.674 1.393.882 1.591.98.198.099.314.083.43-.05.116-.132.497-.578.63-.775.132-.198.265-.165.447-.099.182.066 1.155.545 1.353.644.198.099.33.148.379.231.049.083.049.479-.095.884z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Respuesta Rápida</div>
+              <div class="text-base font-bold text-slate-900 dark:text-white">{personalData.phone}</div>
+              <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-semibold">WhatsApp Directo</div>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+
+        <!-- Email Card with 1-click Copy -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 shadow-md flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="min-w-0">
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Correo Electrónico</div>
+              <div class="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">{personalData.email}</div>
+              <div class="text-[11px] text-sky-600 dark:text-sky-400 font-semibold">Bandeja personal</div>
+            </div>
+          </div>
+
+          <button
+            id="copy-email-btn"
+            type="button"
+            class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700/60 hover:bg-sky-500 hover:text-white text-slate-700 dark:text-slate-300 text-xs font-semibold border border-slate-200 dark:border-slate-600 transition-all cursor-pointer shrink-0"
+            title="Copiar correo"
+          >
+            Copiar
+          </button>
+        </div>
+
+        <!-- Social Channels -->
+        <div class="p-6 rounded-2xl bg-white dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 shadow-md">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4">Redes Profesionales</h4>
+          <div class="grid grid-cols-2 gap-3">
+            <a
+              href={personalData.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 hover:bg-sky-500/10 hover:text-sky-500 border border-slate-200/60 dark:border-slate-700 flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 transition-colors"
+            >
+              <svg class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+
+            <a
+              href={personalData.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 hover:bg-pink-500/10 hover:text-pink-500 border border-slate-200/60 dark:border-slate-700 flex items-center gap-2.5 text-xs font-bold text-slate-800 dark:text-slate-200 transition-colors"
+            >
+              <svg class="w-4 h-4 text-pink-500 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Interactive Form -->
+      <div class="lg:col-span-7 reveal-on-scroll">
+        <div class="p-8 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80 shadow-lg">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Envíame un Mensaje</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Completa los campos a continuación para contactarme directamente.</p>
+
+          <form id="contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-name" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Tu Nombre</label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  required
+                  placeholder="Ej. Carlos Mendoza"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label for="contact-email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Tu Correo</label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  required
+                  placeholder="carlos@ejemplo.com"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label for="contact-service" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Área de Interés</label>
+              <select
+                id="contact-service"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
+              >
+                <option value="Desarrollo de Videojuegos (Unity)">Desarrollo de Videojuegos (Unity C#)</option>
+                <option value="Producción Audiovisual & Motion Graphics">Producción Audiovisual & Motion Graphics</option>
+                <option value="Diseño Gráfico & UI">Diseño Gráfico & UI</option>
+                <option value="Docencia o Capacitación">Docencia / Capacitación</option>
+                <option value="Otro tipo de colaboración">Otro tipo de colaboración</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="contact-message" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Mensaje o Detalle del Proyecto</label>
+              <textarea
+                id="contact-message"
+                rows="4"
+                required
+                placeholder="Cuéntame sobre la idea, objetivos, tiempos o requerimientos..."
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-sky-500 transition-colors"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold text-sm shadow-md shadow-sky-500/20 hover:shadow-sky-500/35 transition-all duration-200 cursor-pointer flex items-center justify-center gap-2"
+            >
+              <span>Enviar Mensaje</span>
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // 1-Click Copy Email
+  const copyBtn = document.getElementById('copy-email-btn');
+  const emailVal = "taboadaoscar53@gmail.com";
+
+  copyBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText(emailVal).then(() => {
+      copyBtn.textContent = '¡Copiado!';
+      copyBtn.classList.add('bg-emerald-500', 'text-white');
+      if ((window as any).showToast) {
+        (window as any).showToast('Correo copiado al portapapeles: ' + emailVal);
+      }
+      setTimeout(() => {
+        copyBtn.textContent = 'Copiar';
+        copyBtn.classList.remove('bg-emerald-500', 'text-white');
+      }, 2000);
+    });
+  });
+
+  // Contact form submission via mailto link
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('contact-name') as HTMLInputElement).value;
+    const email = (document.getElementById('contact-email') as HTMLInputElement).value;
+    const service = (document.getElementById('contact-service') as HTMLSelectElement).value;
+    const msg = (document.getElementById('contact-message') as HTMLTextAreaElement).value;
+
+    const subject = encodeURIComponent(`Nuevo contacto web: ${name} (${service})`);
+    const body = encodeURIComponent(
+      `Hola Oscar,\n\nMi nombre es ${name} (${email}).\nÁrea de interés: ${service}\n\nMensaje:\n${msg}\n\nEnviado desde tu Portafolio Web.`
+    );
+
+    window.location.href = `mailto:taboadaoscar53@gmail.com?subject=${subject}&body=${body}`;
+
+    if ((window as any).showToast) {
+      (window as any).showToast('Abriendo tu gestor de correo para enviar...');
+    }
+  });
+</script>

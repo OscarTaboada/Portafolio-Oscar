@@ -1,0 +1,140 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Oscar Taboada | Ingeniero en Diseño y Animación Digital",
+  description = "Portafolio profesional de Oscar Taboada. Desarrollo de videojuegos con Unity, producción audiovisual, motion graphics y diseño gráfico en Sucre, Bolivia."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Oscar Taboada" />
+    <meta name="keywords" content="Oscar Taboada, Portafolio, Diseño y Animación Digital, Videojuegos Unity, Sucre Bolivia, Motion Graphics, Audiovisual, GDG Sucre" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/images/avatar.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="/images/avatar.png" />
+
+    <!-- Modern Web Guidance: Color Scheme & FOUC Prevention -->
+    <meta name="color-scheme" content="dark light" id="meta-color-scheme" />
+    <script is:inline>
+      (function() {
+        const stored = localStorage.getItem('theme-preference');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Default to dark mode as requested by user
+        const isDark = stored ? stored === 'dark' : true;
+        
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+          const meta = document.getElementById('meta-color-scheme');
+          if (meta) meta.content = 'dark';
+        } else {
+          document.documentElement.classList.remove('dark');
+          const meta = document.getElementById('meta-color-scheme');
+          if (meta) meta.content = 'light';
+        }
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col selection:bg-sky-500/30 selection:text-sky-200">
+    <!-- Decorative background elements -->
+    <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden opacity-40 dark:opacity-60">
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/3 -left-40 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 right-1/4 w-96 h-96 bg-slate-400/10 dark:bg-sky-400/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <slot />
+
+    <!-- Toast notification for copy action -->
+    <div id="toast-notify" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900/90 dark:bg-slate-800/95 text-slate-100 border border-sky-500/30 shadow-xl backdrop-blur-md">
+      <svg class="w-5 h-5 text-sky-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+      </svg>
+      <span id="toast-message" class="text-sm font-medium">Copiado al portapapeles</span>
+    </div>
+
+    <!-- Scroll Reveal and Dialog Light-Dismiss Fallback Scripts -->
+    <script>
+      // Intersection Observer for scroll animations
+      function initScrollReveals() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -40px 0px'
+        });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+          observer.observe(el);
+        });
+      }
+
+      // Dialog backdrop light-dismiss fallback per modern-web-guidance
+      function initDialogLightDismiss() {
+        const dialogs = document.querySelectorAll('dialog');
+        dialogs.forEach((dialog) => {
+          if (!('closedBy' in HTMLDialogElement.prototype)) {
+            dialog.addEventListener('click', (event) => {
+              if (event.target !== dialog) return;
+              const rect = dialog.getBoundingClientRect();
+              const isDialogContent = (
+                rect.top <= event.clientY &&
+                event.clientY <= rect.top + rect.height &&
+                rect.left <= event.clientX &&
+                event.clientX <= rect.left + rect.width
+              );
+              if (!isDialogContent) {
+                dialog.close();
+              }
+            });
+          }
+        });
+      }
+
+      // Toast notification helper exposed on window
+      window.showToast = function(message: string) {
+        const toast = document.getElementById('toast-notify');
+        const text = document.getElementById('toast-message');
+        if (toast && text) {
+          text.textContent = message;
+          toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+          setTimeout(() => {
+            toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+          }, 2500);
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', () => {
+        initScrollReveals();
+        initDialogLightDismiss();
+      });
+    </script>
+  </body>
+</html>
