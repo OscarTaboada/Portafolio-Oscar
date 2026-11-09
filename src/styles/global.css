@@ -62,6 +62,7 @@ body {
 dialog {
   border: none;
   background: transparent;
+  margin: auto;
   padding: 0;
   max-width: 90vw;
   width: 720px;

@@ -1,3 +1,12 @@
+export type ProjectWork = {
+  title: string;
+  src: string;
+  description?: string;
+} & (
+  | { type: 'image'; alt: string }
+  | { type: 'video'; poster?: string }
+);
+
 export interface Project {
   id: string;
   title: string;
@@ -14,6 +23,7 @@ export interface Project {
   liveUrl?: string;
   liveLabel?: string;
   highlights?: string[];
+  works?: ProjectWork[];
 }
 
 export interface SkillCategory {
@@ -43,7 +53,7 @@ export const personalData = {
   heroCoverUrl: "/images/hero_cover.png",
   availableForWork: true,
   statusText: "Disponible para proyectos & docencia",
-  bioHeadline: "Creando mundos interactivos, contenido audiovisual dinámico e identidades visuales memorables.",
+  bioHeadline: "Creando diseños memorables, contenido audiovisual dinámico y mundos interactivos.",
   bioLead: "Hola, soy Oscar. Ingeniero en Diseño y Animación Digital con experiencia en diseño gráfico, producción audiovisual y motion graphics, especializado en la creación de contenido visual para eventos tecnológicos y en el desarrollo de videojuegos.",
   bioDescription: "Trabajo como profesional independiente combinando estética y funcionalidad, desde piezas gráficas y edición de video hasta el desarrollo de videojuegos interactivos en Unity y C#. Me caracterizo por una atención cuidadosa al detalle, adaptabilidad a distintos flujos de trabajo y un enfoque centrado en transformar ideas en experiencias claras, coherentes e impactantes.",
   education: {
@@ -57,20 +67,22 @@ export const personalData = {
 
 export const skillCategories: SkillCategory[] = [
   {
-    title: "Desarrollo de Videojuegos",
-    icon: "gamepad",
-    description: "Creación de experiencias lúdicas e interactivas con énfasis en mecánicas fluidas, interfaces claras y fines educativos.",
+    title: "Diseño Gráfico & UI",
+    icon: "palette",
+    description: "Construcción de identidades visuales coherentes, material promocional y diseño de interfaces centradas en el usuario.",
     skills: [
-      "Programación en Unity & C#",
-      "Sistemas de diálogo dinámicos",
-      "Motores de preguntas y lógica interactiva",
-      "Diseño de interfaz de usuario (UI/UX para juegos)",
-      "Publicación y optimización para Google Play"
+      "Identidad visual y branding",
+      "Diseño de piezas publicitarias para redes",
+      "Prototipado de interfaces UI en Figma",
+      "Modelado y render básico en 3D",
+      "Diseño centrado en la coherencia visual"
     ],
     tools: [
-      { name: "Unity", tag: "Motor 2D/3D" },
-      { name: "C#", tag: "Lenguaje" },
-      { name: "GitHub Desktop", tag: "Control de versiones" }
+      { name: "Figma", tag: "UI / UX" },
+      { name: "Illustrator", tag: "Vectorial" },
+      { name: "Photoshop", tag: "Raster & Edición" },
+      { name: "Blender", tag: "3D" },
+      { name: "Canva", tag: "Composición" }
     ]
   },
   {
@@ -92,41 +104,102 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
-    title: "Diseño Gráfico & UI",
-    icon: "palette",
-    description: "Construcción de identidades visuales coherentes, material promocional y diseño de interfaces centradas en el usuario.",
+    title: "Desarrollo de Videojuegos",
+    icon: "gamepad",
+    description: "Creación de experiencias lúdicas e interactivas con énfasis en mecánicas fluidas, interfaces claras y fines educativos.",
     skills: [
-      "Identidad visual y branding",
-      "Diseño de piezas publicitarias para redes",
-      "Prototipado de interfaces UI en Figma",
-      "Modelado y render básico en 3D",
-      "Diseño centrado en la coherencia visual"
+      "Programación en Unity & C#",
+      "Sistemas de diálogo dinámicos",
+      "Motores de preguntas y lógica interactiva",
+      "Diseño de interfaz de usuario (UI/UX para juegos)",
+      "Publicación y optimización para Google Play"
     ],
     tools: [
-      { name: "Figma", tag: "UI / UX" },
-      { name: "Illustrator", tag: "Vectorial" },
-      { name: "Photoshop", tag: "Raster & Edición" },
-      { name: "Blender", tag: "3D" },
-      { name: "Canva", tag: "Composición" }
+      { name: "Unity", tag: "Motor 2D/3D" },
+      { name: "C#", tag: "Lenguaje" },
+      { name: "GitHub Desktop", tag: "Control de versiones" }
     ]
   }
 ];
 
 export const allToolsList = [
-  { name: "Unity", category: "Videojuegos", level: "Avanzado" },
-  { name: "C#", category: "Programación", level: "Avanzado" },
-  { name: "Adobe After Effects", category: "Motion Graphics", level: "Avanzado" },
-  { name: "Adobe Premiere Pro", category: "Audiovisual", level: "Avanzado" },
-  { name: "Figma", category: "UI/UX", level: "Intermedio / Avanzado" },
   { name: "Adobe Illustrator", category: "Diseño", level: "Avanzado" },
   { name: "Adobe Photoshop", category: "Diseño", level: "Avanzado" },
+  { name: "Figma", category: "UI/UX", level: "Intermedio / Avanzado" },
   { name: "Blender", category: "3D", level: "Intermedio" },
+  { name: "Adobe After Effects", category: "Motion Graphics", level: "Avanzado" },
+  { name: "Adobe Premiere Pro", category: "Audiovisual", level: "Avanzado" },
   { name: "DaVinci Resolve", category: "Audiovisual", level: "Intermedio" },
   { name: "CapCut", category: "Video", level: "Avanzado" },
+  { name: "Unity", category: "Videojuegos", level: "Avanzado" },
+  { name: "C#", category: "Programación", level: "Avanzado" },
   { name: "GitHub Desktop", category: "Desarrollo", level: "Intermedio" }
 ];
 
 export const projects: Project[] = [
+  {
+    id: "ciberkids-sucre",
+    title: "CiberKids Sucre",
+    shortDesc: "Diseño de identidad visual, material publicitario y producción audiovisual para un centro de desarrollo infantil.",
+    fullDesc: "Diseño y producción completa de material gráfico y audiovisual para el centro de desarrollo infantil CiberKids en Sucre. El proyecto estuvo orientado a consolidar su posicionamiento institucional y presencia en canales digitales a través de piezas publicitarias, banners informativos y un video institucional que comunica calidez, seguridad y metodología educativa a las familias.",
+    categories: ["audiovisual", "diseno"],
+    categoryLabels: ["Diseño Gráfico", "Audiovisual"],
+    client: "CiberKids",
+    date: "Agosto 2023",
+    role: ["Diseñador gráfico", "Editor de video", "Motion designer"],
+    tools: ["Illustrator", "Photoshop", "CapCut"],
+    status: "Finalizado",
+    image: "/images/project_ciberkids.png",
+    highlights: [
+      "Conceptualización gráfica adaptada a padres de familia y primera infancia",
+      "Video institucional con narrativa emocional y explicativa",
+      "Plantillas gráficas reutilizables para publicaciones periódicas en redes"
+    ]
+  },
+  {
+    id: "google-io-extended-sucre",
+    title: "Google I/O Extended Sucre",
+    shortDesc: "Producción audiovisual, motion graphics y piezas gráficas oficiales para el evento Google I/O de GDG Sucre.",
+    fullDesc: "Producción y diseño integral de piezas gráficas y contenido audiovisual para las ediciones del Google I/O Extended organizadas por GDG Sucre. Mi participación comprendió el desarrollo de toda la identidad gráfica del evento, cortinillas en motion graphics, bumpers animados y edición de videos para canales digitales, asegurando total fidelidad a los lineamientos visuales oficiales de Google Developer Communities.",
+    categories: ["audiovisual", "diseno"],
+    categoryLabels: ["Audiovisual", "Motion Graphics", "Diseño Gráfico"],
+    client: "GDG Sucre",
+    date: "Julio 2022",
+    role: ["Diseñador gráfico", "Diseñador de UI", "Editor de video", "Motion designer"],
+    tools: ["Figma", "Illustrator", "After Effects", "Blender", "DaVinci Resolve", "CapCut"],
+    status: "Finalizado",
+    image: "/images/project_google_io.png",
+    liveUrl: "https://www.instagram.com/gdg.sucre/",
+    liveLabel: "Ver en Instagram @gdg.sucre",
+    highlights: [
+      "Cumplimiento riguroso del manual de marca de Google Developers",
+      "Producción de motion graphics para pantallas principales de auditorio",
+      "Contenido promocional en redes con alto engagement en la comunidad tecnológica",
+      "Postproducción de resúmenes de ponencias y material de difusión"
+    ]
+  },
+  {
+    id: "devfest-sucre",
+    title: "DevFest Sucre",
+    shortDesc: "Coordinación audiovisual, cobertura de evento, motion graphics e identidad gráfica para el DevFest Sucre.",
+    fullDesc: "Producción y realización audiovisual para múltiples ediciones consecutivas del DevFest Sucre. Como coordinador audiovisual, lideré la cobertura en vivo, el diseño de piezas gráficas oficiales, motion graphics para ponencias y la postproducción de resúmenes y reels para plataformas digitales. El objetivo se centró en proyectar una imagen profesional y vibrante que documente el crecimiento de la comunidad de desarrolladores en Chuquisaca.",
+    categories: ["audiovisual", "diseno"],
+    categoryLabels: ["Audiovisual", "Motion Graphics", "Diseño Gráfico"],
+    client: "GDG Sucre",
+    date: "Julio 2022",
+    role: ["Coordinador audiovisual", "Editor de video", "Motion designer", "Diseñador gráfico", "Diseñador de UI"],
+    tools: ["Figma", "Illustrator", "After Effects", "Blender", "CapCut"],
+    status: "Finalizado",
+    image: "/images/project_devfest.png",
+    liveUrl: "https://www.tiktok.com/@gdgsucre",
+    liveLabel: "Ver en TikTok @gdgsucre",
+    highlights: [
+      "Coordinación de equipo audiovisual y cobertura en tiempo real",
+      "Identidad visual coherente a lo largo de todas las ediciones",
+      "Edición ágil de reels y clips para amplificación en TikTok e Instagram",
+      "Diseño de pantallas de bienvenida y cortinillas animadas de conferencias"
+    ]
+  },
   {
     id: "dino-defensor",
     title: "Dino Defensor",
@@ -189,79 +262,16 @@ export const projects: Project[] = [
       "Diseño visual de personajes e interfaz amigable sin barreras de texto",
       "Arquitectura modular para incorporar nuevos niveles de aprendizaje"
     ]
-  },
-  {
-    id: "google-io-extended-sucre",
-    title: "Google I/O Extended Sucre",
-    shortDesc: "Producción audiovisual, motion graphics y piezas gráficas oficiales para el evento Google I/O de GDG Sucre.",
-    fullDesc: "Producción y diseño integral de piezas gráficas y contenido audiovisual para las ediciones del Google I/O Extended organizadas por GDG Sucre. Mi participación comprendió el desarrollo de toda la identidad gráfica del evento, cortinillas en motion graphics, bumpers animados y edición de videos para canales digitales, asegurando total fidelidad a los lineamientos visuales oficiales de Google Developer Communities.",
-    categories: ["audiovisual", "diseno"],
-    categoryLabels: ["Audiovisual", "Motion Graphics", "Diseño Gráfico"],
-    client: "GDG Sucre",
-    date: "Julio 2022",
-    role: ["Diseñador gráfico", "Diseñador de UI", "Editor de video", "Motion designer"],
-    tools: ["Figma", "Illustrator", "After Effects", "Blender", "DaVinci Resolve", "CapCut"],
-    status: "Finalizado",
-    image: "/images/project_google_io.png",
-    liveUrl: "https://www.instagram.com/gdg.sucre/",
-    liveLabel: "Ver en Instagram @gdg.sucre",
-    highlights: [
-      "Cumplimiento riguroso del manual de marca de Google Developers",
-      "Producción de motion graphics para pantallas principales de auditorio",
-      "Contenido promocional en redes con alto engagement en la comunidad tecnológica",
-      "Postproducción de resúmenes de ponencias y material de difusión"
-    ]
-  },
-  {
-    id: "devfest-sucre",
-    title: "DevFest Sucre",
-    shortDesc: "Coordinación audiovisual, cobertura de evento, motion graphics e identidad gráfica para el DevFest Sucre.",
-    fullDesc: "Producción y realización audiovisual para múltiples ediciones consecutivas del DevFest Sucre. Como coordinador audiovisual, lideré la cobertura en vivo, el diseño de piezas gráficas oficiales, motion graphics para ponencias y la postproducción de resúmenes y reels para plataformas digitales. El objetivo se centró en proyectar una imagen profesional y vibrante que documente el crecimiento de la comunidad de desarrolladores en Chuquisaca.",
-    categories: ["audiovisual", "diseno"],
-    categoryLabels: ["Audiovisual", "Motion Graphics", "Diseño Gráfico"],
-    client: "GDG Sucre",
-    date: "Julio 2022",
-    role: ["Coordinador audiovisual", "Editor de video", "Motion designer", "Diseñador gráfico", "Diseñador de UI"],
-    tools: ["Figma", "Illustrator", "After Effects", "Blender", "CapCut"],
-    status: "Finalizado",
-    image: "/images/project_devfest.png",
-    liveUrl: "https://www.tiktok.com/@gdgsucre",
-    liveLabel: "Ver en TikTok @gdgsucre",
-    highlights: [
-      "Coordinación de equipo audiovisual y cobertura en tiempo real",
-      "Identidad visual coherente a lo largo de todas las ediciones",
-      "Edición ágil de reels y clips para amplificación en TikTok e Instagram",
-      "Diseño de pantallas de bienvenida y cortinillas animadas de conferencias"
-    ]
-  },
-  {
-    id: "ciberkids-sucre",
-    title: "CiberKids Sucre",
-    shortDesc: "Diseño de identidad visual, material publicitario y producción audiovisual para un centro de desarrollo infantil.",
-    fullDesc: "Diseño y producción completa de material gráfico y audiovisual para el centro de desarrollo infantil CiberKids en Sucre. El proyecto estuvo orientado a consolidar su posicionamiento institucional y presencia en canales digitales a través de piezas publicitarias, banners informativos y un video institucional que comunica calidez, seguridad y metodología educativa a las familias.",
-    categories: ["audiovisual", "diseno"],
-    categoryLabels: ["Diseño Gráfico", "Audiovisual"],
-    client: "CiberKids",
-    date: "Agosto 2023",
-    role: ["Diseñador gráfico", "Editor de video", "Motion designer"],
-    tools: ["Illustrator", "Photoshop", "CapCut"],
-    status: "Finalizado",
-    image: "/images/project_ciberkids.png",
-    highlights: [
-      "Conceptualización gráfica adaptada a padres de familia y primera infancia",
-      "Video institucional con narrativa emocional y explicativa",
-      "Plantillas gráficas reutilizables para publicaciones periódicas en redes"
-    ]
   }
 ];
 
 export const faqItems: FAQItem[] = [
   {
     question: "¿Qué servicios ofreces?",
-    answer: "Ofrezco soluciones creativas e interactivas organizadas en tres áreas de especialidad:\n\n• **Desarrollo de Videojuegos & Entornos Interactivos**: Programación de lógica y mecánicas en Unity C#, videojuegos educativos, sistemas de diálogo y cuestionarios dinámicos, diseño de interfaz (UI/UX) y preparación para publicación en tiendas como Google Play.\n\n• **Producción Audiovisual & Motion Graphics**: Animación de elementos gráficos (motion design), edición dinámica de video, cortinillas para conferencias, cobertura y postproducción de eventos presenciales y contenido de alto impacto para redes sociales.\n\n• **Diseño Gráfico & Branding**: Creación de identidad de marca, manuales gráficos, piezas publicitarias digitales e impresas, maquetación de interfaces en Figma y modelado 3D básico en Blender."
+    answer: "Ofrezco soluciones creativas e interactivas organizadas en tres áreas de especialidad:\n\n• **Diseño Gráfico & Branding**: Creación de identidad de marca, manuales gráficos, piezas publicitarias digitales e impresas, maquetación de interfaces en Figma y modelado 3D básico en Blender.\n\n• **Producción Audiovisual & Motion Graphics**: Animación de elementos gráficos (motion design), edición dinámica de video, cortinillas para conferencias, cobertura y postproducción de eventos presenciales y contenido de alto impacto para redes sociales.\n\n• **Desarrollo de Videojuegos & Entornos Interactivos**: Programación de lógica y mecánicas en Unity C#, videojuegos educativos, sistemas de diálogo y cuestionarios dinámicos, diseño de interfaz (UI/UX) y preparación para publicación en tiendas como Google Play."
   },
   {
     question: "¿Cómo puedo iniciar un proyecto contigo?",
-    answer: "El proceso es colaborativo, transparente y consta de 4 pasos fundamentales:\n\n1. **Contacto Inicial**: Escríbeme por WhatsApp (+591 75772244) o mediante el formulario con una breve descripción de tu idea, requerimiento o evento.\n2. **Diagnóstico & Alcance**: Agendamos una breve conversación para definir objetivos, referencias estéticas, entregables y fechas límite.\n3. **Propuesta & Cronograma**: Te presento una cotización detallada con etapas de trabajo estructuradas y fechas de revisión programadas.\n4. **Desarrollo & Entrega**: Trabajamos con avances iterativos donde podrás brindar feedback hasta alcanzar el resultado óptimo y recibir los archivos finales listos para su uso."
+    answer: "1. **Cuéntame tu idea:** Escríbeme por WhatsApp o completa el formulario.\n2. **Definimos el proyecto:** Acordamos objetivos, presupuesto y plazos.\n3. **Creamos y entregamos:** Revisas los avances y recibes los archivos finales."
   }
 ];

@@ -38,7 +38,11 @@ import { faqItems } from '../data/portfolio';
           </summary>
           
           <div class="mt-5 pt-4 border-t border-slate-100 dark:border-slate-700/60 text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
-            {item.answer}
+            {item.answer.split(/(\*\*.*?\*\*)/g).map((part) => (
+              part.startsWith('**') && part.endsWith('**')
+                ? <strong class="font-semibold text-slate-800 dark:text-slate-100">{part.slice(2, -2)}</strong>
+                : part
+            ))}
           </div>
         </details>
       ))}
