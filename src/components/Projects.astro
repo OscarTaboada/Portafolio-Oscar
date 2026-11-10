@@ -1,5 +1,6 @@
 ---
 import { projects } from '../data/portfolio';
+import ProjectWorkCard from './ProjectWorkCard.astro';
 ---
 
 <section id="proyectos" class="py-20 bg-slate-50/50 dark:bg-slate-900/30 border-y border-slate-200/40 dark:border-slate-800/60 relative">
@@ -222,7 +223,7 @@ import { projects } from '../data/portfolio';
           <h4 id="modal-works-title" class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">Trabajos</h4>
           <p class="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Una selección de piezas y contenido realizados para este proyecto.</p>
         </div>
-        <div id="modal-works" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+        <div id="modal-works" class="space-y-8"></div>
         <p id="modal-works-empty" class="rounded-xl border border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/40 px-5 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
           Próximamente podrás ver los trabajos de este proyecto aquí.
         </p>
@@ -257,32 +258,45 @@ import { projects } from '../data/portfolio';
 </dialog>
 
 <!-- Keep each project's media separate until its details are opened. -->
-{projects.map((project) => (
+{projects.map((project) => {
+  const works = project.works ?? [];
+  const groups = [...new Set(works.map((work) => work.group).filter(Boolean))];
+  const ungroupedWorks = works.filter((work) => !work.group);
+  return (
   <template id={`project-works-${project.id}`}>
-    {project.works?.map((work) => (
-      <figure class:list={[
-        'overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50',
-        { 'sm:col-span-2': work.type === 'video' }
-      ]}>
-        {work.type === 'image' ? (
-          <a href={work.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver imagen completa: ${work.title}`} class="block group focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:-outline-offset-2">
-            <img src={work.src} alt={work.alt} loading="lazy" decoding="async" class="w-full h-56 object-contain bg-slate-100 dark:bg-slate-950" />
-            <span class="block px-4 pt-3 text-xs font-semibold text-sky-600 dark:text-sky-400 group-hover:underline">Ver imagen completa ↗</span>
+    {Boolean(project.workLinks?.length) && (
+      <section aria-labelledby={`work-links-${project.id}`} class="space-y-4">
+        <h5 id={`work-links-${project.id}`} class="pb-3 border-b border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-800 dark:text-slate-100">Edición de videos</h5>
+        {project.workLinks?.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="flex items-center justify-between gap-3 rounded-xl border border-sky-500/20 bg-sky-500/5 p-4 text-sm font-semibold text-sky-700 dark:text-sky-300 hover:bg-sky-500/10 transition-colors">
+            <span>{link.title}</span>
+            <span aria-hidden="true">↗</span>
           </a>
-        ) : (
-          <video controls playsinline preload="none" poster={work.poster} aria-label={work.title} class="w-full max-h-96 bg-slate-950">
-            <source src={work.src} />
-            Tu navegador no puede reproducir este video. <a href={work.src}>Abrir video</a>
-          </video>
-        )}
-        <figcaption class="p-4">
-          <h5 class="text-sm font-semibold text-slate-800 dark:text-slate-100">{work.title}</h5>
-          {work.description && <p class="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{work.description}</p>}
-        </figcaption>
-      </figure>
+        ))}
+      </section>
+    )}
+    {groups.map((group, index) => (
+      <section aria-labelledby={`work-group-${project.id}-${index}`} class="space-y-4" data-work-group={group}>
+        <h5 id={`work-group-${project.id}-${index}`} class="pb-3 border-b border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-800 dark:text-slate-100">{group}</h5>
+        <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 items-start">
+          {works.filter((work) => work.group === group).map((work) => (
+            <ProjectWorkCard work={work} naturalSize class={
+              work.layout === 'wide' ? 'sm:col-span-6' : work.layout === 'third' ? 'sm:col-span-2' : 'sm:col-span-3'
+            } />
+          ))}
+        </div>
+      </section>
     ))}
+    {ungroupedWorks.length > 0 && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {ungroupedWorks.map((work) => (
+          <ProjectWorkCard work={work} class={work.type === 'video' ? 'sm:col-span-2' : ''} />
+        ))}
+      </div>
+    )}
   </template>
-))}
+  );
+})}
 
 <script>
   import type { Project } from '../data/portfolio';
@@ -409,9 +423,9 @@ import { projects } from '../data/portfolio';
       if (worksContainer) {
         worksContainer.querySelectorAll('video').forEach(video => video.pause());
         worksContainer.replaceChildren(...(worksTemplate ? [worksTemplate.content.cloneNode(true)] : []));
-        worksContainer.hidden = !p.works?.length;
+        worksContainer.hidden = !p.works?.length && !p.workLinks?.length;
       }
-      if (worksEmpty) worksEmpty.hidden = Boolean(p.works?.length);
+      if (worksEmpty) worksEmpty.hidden = Boolean(p.works?.length || p.workLinks?.length);
 
       // Live CTA
       const liveBtn = document.getElementById('modal-live-btn') as HTMLAnchorElement;

@@ -1,0 +1,38 @@
+---
+import type { ProjectWork } from '../data/portfolio';
+
+interface Props {
+  work: ProjectWork;
+  naturalSize?: boolean;
+  class?: string;
+}
+
+const { work, naturalSize = false, class: className } = Astro.props;
+---
+
+<figure class:list={[
+  'min-w-0 overflow-hidden rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50',
+  className
+]}>
+  {work.type === 'image' ? (
+    <a href={work.src} target="_blank" rel="noopener noreferrer" aria-label={`Ver imagen completa: ${work.title}`} class="block group focus-visible:outline-2 focus-visible:outline-sky-500 focus-visible:-outline-offset-2">
+      <img src={work.src} alt={work.alt} loading="lazy" decoding="async" class:list={[
+        'w-full object-contain bg-slate-100 dark:bg-slate-950',
+        naturalSize ? 'h-auto' : 'h-56'
+      ]} />
+      <span class="block px-4 pt-3 text-xs font-semibold text-sky-600 dark:text-sky-400 group-hover:underline">Ver imagen completa ↗</span>
+    </a>
+  ) : (
+    <video controls playsinline preload="none" poster={work.poster} aria-label={work.title} class:list={[
+      'w-full object-contain bg-slate-950',
+      naturalSize ? 'h-auto' : 'max-h-96'
+    ]}>
+      <source src={work.src} />
+      Tu navegador no puede reproducir este video. <a href={work.src}>Abrir video</a>
+    </video>
+  )}
+  <figcaption class="p-4">
+    <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">{work.title}</p>
+    {work.description && <p class="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">{work.description}</p>}
+  </figcaption>
+</figure>

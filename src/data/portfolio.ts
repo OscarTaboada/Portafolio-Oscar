@@ -1,7 +1,11 @@
+import { projectWorks } from './projectWorks';
+
 export type ProjectWork = {
   title: string;
   src: string;
   description?: string;
+  group?: string;
+  layout?: 'wide' | 'half' | 'third';
 } & (
   | { type: 'image'; alt: string }
   | { type: 'video'; poster?: string }
@@ -24,6 +28,7 @@ export interface Project {
   liveLabel?: string;
   highlights?: string[];
   works?: ProjectWork[];
+  workLinks?: { title: string; url: string }[];
 }
 
 export interface SkillCategory {
@@ -139,6 +144,13 @@ export const allToolsList = [
 export const projects: Project[] = [
   {
     id: "ciberkids-sucre",
+    works: projectWorks['ciberkids-sucre'],
+    workLinks: [
+      {
+        title: 'Videos de CiberKids en Google Drive',
+        url: 'https://drive.google.com/drive/folders/115o3PrPAosar6Qz7hzFgzRmrJPvO_Caj?usp=sharing'
+      }
+    ],
     title: "CiberKids Sucre",
     shortDesc: "Diseño de identidad visual, material publicitario y producción audiovisual para un centro de desarrollo infantil.",
     fullDesc: "Diseño y producción completa de material gráfico y audiovisual para el centro de desarrollo infantil CiberKids en Sucre. El proyecto estuvo orientado a consolidar su posicionamiento institucional y presencia en canales digitales a través de piezas publicitarias, banners informativos y un video institucional que comunica calidez, seguridad y metodología educativa a las familias.",
@@ -158,6 +170,7 @@ export const projects: Project[] = [
   },
   {
     id: "google-io-extended-sucre",
+    works: projectWorks['google-io-extended-sucre'],
     title: "Google I/O Extended Sucre",
     shortDesc: "Producción audiovisual, motion graphics y piezas gráficas oficiales para el evento Google I/O de GDG Sucre.",
     fullDesc: "Producción y diseño integral de piezas gráficas y contenido audiovisual para las ediciones del Google I/O Extended organizadas por GDG Sucre. Mi participación comprendió el desarrollo de toda la identidad gráfica del evento, cortinillas en motion graphics, bumpers animados y edición de videos para canales digitales, asegurando total fidelidad a los lineamientos visuales oficiales de Google Developer Communities.",
@@ -180,6 +193,7 @@ export const projects: Project[] = [
   },
   {
     id: "devfest-sucre",
+    works: projectWorks['devfest-sucre'],
     title: "DevFest Sucre",
     shortDesc: "Coordinación audiovisual, cobertura de evento, motion graphics e identidad gráfica para el DevFest Sucre.",
     fullDesc: "Producción y realización audiovisual para múltiples ediciones consecutivas del DevFest Sucre. Como coordinador audiovisual, lideré la cobertura en vivo, el diseño de piezas gráficas oficiales, motion graphics para ponencias y la postproducción de resúmenes y reels para plataformas digitales. El objetivo se centró en proyectar una imagen profesional y vibrante que documente el crecimiento de la comunidad de desarrolladores en Chuquisaca.",
